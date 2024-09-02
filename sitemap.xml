@@ -83,13 +83,6 @@
 
   
   <url>
-    <loc>https://kelfvin.github.io/tags/%E5%8D%9A%E5%AE%A2/</loc>
-    <lastmod>2024-09-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://kelfvin.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2024-09-02</lastmod>
     <changefreq>weekly</changefreq>
@@ -103,10 +96,17 @@
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>https://kelfvin.github.io/tags/%E5%8D%9A%E5%AE%A2/</loc>
+    <lastmod>2024-09-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
   
   <url>
-    <loc>https://kelfvin.github.io/categories/%E6%97%A5%E8%AE%B0/</loc>
+    <loc>https://kelfvin.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2024-09-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -120,7 +120,7 @@
   </url>
   
   <url>
-    <loc>https://kelfvin.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc>
+    <loc>https://kelfvin.github.io/categories/%E6%97%A5%E8%AE%B0/</loc>
     <lastmod>2024-09-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
