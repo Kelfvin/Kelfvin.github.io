@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>随笔 on Kelf&#39;s Blog</title>
-        <link>https://Kelfvin.github.io/categories/%E9%9A%8F%E7%AC%94/</link>
+        <link>https://kelfvin.github.io/categories/%E9%9A%8F%E7%AC%94/</link>
         <description>Recent content in 随笔 on Kelf&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Fri, 28 Feb 2025 15:36:07 +0800</lastBuildDate><atom:link href="https://Kelfvin.github.io/categories/%E9%9A%8F%E7%AC%94/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 28 Feb 2025 15:36:07 +0800</lastBuildDate><atom:link href="https://kelfvin.github.io/categories/%E9%9A%8F%E7%AC%94/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>新的开始</title>
-        <link>https://Kelfvin.github.io/post/new_start/</link>
+        <link>https://kelfvin.github.io/post/new_start/</link>
         <pubDate>Fri, 28 Feb 2025 15:36:07 +0800</pubDate>
         
-        <guid>https://Kelfvin.github.io/post/new_start/</guid>
+        <guid>https://kelfvin.github.io/post/new_start/</guid>
         <description>&lt;h2 id=&#34;为什么重新弄了一个博客&#34;&gt;为什么重新弄了一个博客？
 &lt;/h2&gt;&lt;p&gt;很早之前有弄过博客，但是那个时候是随便配置的，博客的仓库也没有设置，导致当时写的一些帖子的原文件弄掉了。&lt;/p&gt;
 &lt;p&gt;所以现在重新开了一个仓库来重新开始。&lt;/p&gt;
