@@ -20,6 +20,123 @@
     &gt;Stack&lt;/a&gt;，一个比较整洁的主题。&lt;/p&gt;
 </description>
         </item>
+        <item>
+        <title>图像篡改检测性能指标虚高</title>
+        <link>https://kelfvin.github.io/post/%E5%9B%BE%E5%83%8F%E7%AF%A1%E6%94%B9%E6%A3%80%E6%B5%8B%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E8%99%9A%E9%AB%98/</link>
+        <pubDate>Sat, 17 Aug 2024 16:20:52 +0800</pubDate>
+        
+        <guid>https://kelfvin.github.io/post/%E5%9B%BE%E5%83%8F%E7%AF%A1%E6%94%B9%E6%A3%80%E6%B5%8B%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E8%99%9A%E9%AB%98/</guid>
+        <description>&lt;h2 id=&#34;起因&#34;&gt;起因
+&lt;/h2&gt;&lt;p&gt;在 IML 领域中，通常使用 F1 来对模型的 Pixel-level (Location) 性能进行评估。&lt;/p&gt;
+&lt;p&gt;HIFI_IFDL项目中，有一个issue讨论了F1 score的选择问题：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://kelfvin.github.io/post/%E5%9B%BE%E5%83%8F%E7%AF%A1%E6%94%B9%E6%A3%80%E6%B5%8B%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E8%99%9A%E9%AB%98/image1.png&#34;
+	width=&#34;1346&#34;
+	height=&#34;1187&#34;
+	srcset=&#34;https://kelfvin.github.io/post/%E5%9B%BE%E5%83%8F%E7%AF%A1%E6%94%B9%E6%A3%80%E6%B5%8B%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E8%99%9A%E9%AB%98/image1_hu_e7f64669bcf6bf3.png 480w, https://kelfvin.github.io/post/%E5%9B%BE%E5%83%8F%E7%AF%A1%E6%94%B9%E6%A3%80%E6%B5%8B%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E8%99%9A%E9%AB%98/image1_hu_cc7cf16fb8e7bb79.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;113&#34;
+		data-flex-basis=&#34;272px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;提出者认为，当使用average = &amp;lsquo;macro&amp;rsquo;时，F1 score会比使用average = &amp;lsquo;binary&amp;rsquo;时更高。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;When you use &amp;ldquo;average = &amp;lsquo;macro&amp;rsquo;&amp;rdquo;, will the F1 score be inflated higher than normal (average = &amp;lsquo;binary&amp;rsquo;)?&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;在IMDLBenco项目中也针对这个问题做了一个实验，表明使用average = &amp;lsquo;macro&amp;rsquo;时，F1 score确实会比使用average = &amp;lsquo;binary&amp;rsquo;时更高。&lt;/p&gt;
+&lt;h2 id=&#34;数学分析&#34;&gt;数学分析
+&lt;/h2&gt;&lt;p&gt;那么从数学上如何解释这个现象呢？首先要知道 F1 score 和 Macro-F1 score 的定义。&lt;/p&gt;
+&lt;p&gt;F1 Score&lt;/p&gt;
+&lt;p&gt;F1 score是针对二分类问题提出的评价指标，是precision和recall的调和平均数，定义如下：&lt;/p&gt;
+&lt;p&gt;$$
+F1 = \frac{2 \times Precision \times Recall}{Precision + Recall}
+$$&lt;/p&gt;
+&lt;p&gt;其中，precision和recall的定义如下：&lt;/p&gt;
+&lt;p&gt;$$
+Precision = \frac{TP}{TP + FP}
+$$&lt;/p&gt;
+&lt;p&gt;$$
+Recall = \frac{TP}{TP + FN}
+$$&lt;/p&gt;
+&lt;p&gt;在IMDL中，正样本是伪造区域（前景），负样本是真实区域（背景）。&lt;/p&gt;
+&lt;h3 id=&#34;macro-f1-score&#34;&gt;Macro-F1 Score
+&lt;/h3&gt;&lt;p&gt;Macro-F1 score是对每个类别的F1 score取平均值，定义如下：&lt;/p&gt;
+&lt;p&gt;$$
+Macro-F1 = \frac{1}{N} \sum_{i=1}^{N} F1_i
+$$&lt;/p&gt;
+&lt;h3 id=&#34;为什么在iml中macro-f1-score会比f1-score高&#34;&gt;为什么在IML中Macro-F1 Score会比F1 Score高？
+&lt;/h3&gt;&lt;p&gt;由于IML是一个二分类问题，所以N=2，Macro-F1 score的定义如下：&lt;/p&gt;
+&lt;p&gt;$$
+Macro-F1 = \frac{F1_{positive} + F1_{negative}}{2}
+$$&lt;/p&gt;
+&lt;p&gt;首先计算 $F1_{positive}$ 和 $F1_{negative}$ ：&lt;/p&gt;
+&lt;p&gt;$$
+\begin{align*}
+F1_{positive} &amp;amp; = \frac{2 \times Precision_{positive} \times Recall_{positive}}{Precision_{positive} + Recall_{positive}} \\
+&amp;amp; = \frac{2TN}{2TN + FN + FP}
+\end{align*}
+$$&lt;/p&gt;
+&lt;p&gt;$$
+\begin{align*}
+F1_{negative} &amp;amp; = \frac{2 \times Precision_{negative} \times Recall_{negative}}{Precision_{negative} + Recall_{negative}} \\
+&amp;amp; = \frac{2TP}{2TP + FP + FN}
+\end{align*}
+$$&lt;/p&gt;
+&lt;p&gt;所以，Macro-F1 score的计算公式如下：&lt;/p&gt;
+&lt;p&gt;$$
+\begin{align*}
+Macro-F1 &amp;amp;= \frac{F1_{positive} + F1_{negative}}{2} \\
+&amp;amp; = \frac{\frac{2TN}{2TN + FN + FP} + \frac{2TP}{2TP + FP + FN}}{2} \\
+&amp;amp; = \frac{TP}{2TP + FP + FN} + \frac{TN}{2TN + FN + FP}
+\end{align*}
+$$&lt;/p&gt;
+&lt;p&gt;要比较Macro-F1和F1的大小，可以将Macro-F1和F1相减：&lt;/p&gt;
+&lt;p&gt;$$
+\begin{align*}
+Macro-F1 - F1 &amp;amp;= \frac{TP}{2TP + FP + FN} + \frac{TN}{2TN + FN + FP} - \frac{2TP}{2TP + FP + FN} \\
+&amp;amp; = \frac{TN}{2TN + FN + FP} - \frac{TP}{2TP + FP + FN} \\
+\end{align*}
+$$&lt;/p&gt;
+&lt;p&gt;让两个分数都分子分母同时处以分子，得到：&lt;/p&gt;
+&lt;p&gt;$$
+\begin{align*}
+Macro-F1 - F1 &amp;amp; = \frac{1}{2+\frac{FP+FN}{TN}}-\frac{1}{2+\frac{FN+FP}{TP}}
+\end{align*}
+$$&lt;/p&gt;
+&lt;p&gt;由于FP和FN都是正数，所以$\frac{FP+FN}{TN} &amp;gt; 0$，$\frac{FN+FP}{TP} &amp;gt; 0$，所以只需要看TP和TN的大小关系。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://kelfvin.github.io/post/%E5%9B%BE%E5%83%8F%E7%AF%A1%E6%94%B9%E6%A3%80%E6%B5%8B%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E8%99%9A%E9%AB%98/image2.png&#34;
+	width=&#34;1152&#34;
+	height=&#34;256&#34;
+	srcset=&#34;https://kelfvin.github.io/post/%E5%9B%BE%E5%83%8F%E7%AF%A1%E6%94%B9%E6%A3%80%E6%B5%8B%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E8%99%9A%E9%AB%98/image2_hu_adbf950cc9ffdd94.png 480w, https://kelfvin.github.io/post/%E5%9B%BE%E5%83%8F%E7%AF%A1%E6%94%B9%E6%A3%80%E6%B5%8B%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E8%99%9A%E9%AB%98/image2_hu_68c423d27e3e1d7f.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;450&#34;
+		data-flex-basis=&#34;1080px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;由于在IML领域中，通常背景的面积是大于伪造区域的面积的，一般模型也可以很容易检测出背景，所以通常情况下有$TP &amp;gt; TN$，所以有：&lt;/p&gt;
+&lt;p&gt;$$
+\begin{align*}
+Macro-F1 - F1 &amp;amp; = \frac{1}{2+\frac{FP+FN}{TN}}-\frac{1}{2+\frac{FN+FP}{TP}} &amp;gt; 0
+\end{align*}
+$$&lt;/p&gt;
+&lt;p&gt;即Macro-F1 score会比F1 score高。&lt;/p&gt;
+&lt;h3 id=&#34;iml任务中应该使用哪个&#34;&gt;IML任务中应该使用哪个？
+&lt;/h3&gt;&lt;p&gt;知道了MacroF1会比F1高，那么在IML领域中，我们应该使用哪个呢？&lt;/p&gt;
+&lt;p&gt;在IML领域中，背景像素与伪造区域像素的数量并不平衡，背景像素点是大于伪造区域像素点的，一个模型在一定范围内模型倾向于多检测出背景像素点可以使得Macro-F1 score有一定的提升，但是从实际效果上来说模型更难完整的检测出伪造区域，所以在IML领域中，我们应该使用F1 score来评估模型的性能。&lt;/p&gt;
+&lt;p&gt;另外，许多IML的Paper中也使用F1 score来评估模型的性能，为了评价指标的一致性，我们也应该使用F1 score来评估模型的性能。&lt;/p&gt;
+&lt;h2 id=&#34;结论&#34;&gt;结论
+&lt;/h2&gt;&lt;p&gt;在IML领域中，当使用average = &amp;lsquo;macro&amp;rsquo;时，F1 score会比使用average = &amp;lsquo;binary&amp;rsquo;时更高，这是因为Macro-F1 score会综合考虑背景区域的点和伪造区域的点是否被正确分类，而F1 score只考虑伪造区域的点是否被正确分类。但是在IML领域中由于背景区域的面积通常大于伪造区域的面积且模型更容易检测出背景区域，相当于给背景分类任务增加了权重，所以Macro-F1 score会比F1 score高。&lt;/p&gt;
+&lt;p&gt;在IML领域中背景像素与伪造区域像素的数量并不平衡，在IML领域中，我们应该使用F1 score来评估模型的性能。同时，为了指标的一致性，我们也应该使用F1 score来评估模型的性能。&lt;/p&gt;
+</description>
+        </item>
         
     </channel>
 </rss>
