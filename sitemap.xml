@@ -3,7 +3,16 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://kelfvin.github.io/</loc>
-    <lastmod>2025-02-28T20:44:20+08:00</lastmod>
+    <lastmod>2025-03-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://kelfvin.github.io/page/about/</loc>
+    <lastmod>2025-03-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://kelfvin.github.io/page/archives/</loc>
+    <lastmod>2025-03-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://kelfvin.github.io/page/</loc>
+    <lastmod>2025-03-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://kelfvin.github.io/post/</loc>
     <lastmod>2025-02-28T17:02:57+08:00</lastmod>
@@ -16,6 +25,10 @@
   </url><url>
     <loc>https://kelfvin.github.io/post/new_start/</loc>
     <lastmod>2025-02-28T15:36:07+08:00</lastmod>
+  </url><url>
+    <loc>https://kelfvin.github.io/page/links/</loc>
+  </url><url>
+    <loc>https://kelfvin.github.io/page/search/</loc>
   </url><url>
     <loc>https://kelfvin.github.io/tags/</loc>
   </url>
