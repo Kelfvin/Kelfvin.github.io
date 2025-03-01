@@ -10,9 +10,10 @@
 <meta property='og:description' content="起因 在 IML 领域中，通常使用 F1 来对模型的 Pixel-level (Location) 性能进行评估。\nHIFI_IFDL项目中，有一个issue讨论了F1 score的选择问题：\n提出者认为，当使用average = &lsquo;macro&rsquo;时，F1 score会比使用average = &lsquo;binary&rsquo;时更高。\nWhen you use &ldquo;average = &lsquo;macro&rsquo;&rdquo;, will the F1 score be inflated higher than normal (average = &lsquo;binary&rsquo;)?\n在IMDLBenco项目中也针对这个问题做了一个实验，表明使用average = &lsquo;macro&rsquo;时，F1 score确实会比使用average = &lsquo;binary&rsquo;时更高。\n数学分析 那么从数学上如何解释这个现象呢？首先要知道 F1 score 和 Macro-F1 score 的定义。\nF1 Score\nF1 score是针对二分类问题提出的评价指标，是precision和recall的调和平均数，定义如下：\n$$ F1 = \\frac{2 \\times Precision \\times Recall}{Precision + Recall} $$\n">
 <meta property='og:url' content='https://kelfvin.github.io/post/%E5%9B%BE%E5%83%8F%E7%AF%A1%E6%94%B9%E6%A3%80%E6%B5%8B%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E8%99%9A%E9%AB%98/'>
 <meta property='og:site_name' content='Kelf&#39;s Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='图像篡改检测' /><meta property='article:tag' content='性能指标' /><meta property='article:tag' content='F1 Score' /><meta property='article:tag' content='Macro-F1 Score' /><meta property='article:tag' content='IML' /><meta property='article:published_time' content='2024-08-17T16:20:52&#43;08:00'/><meta property='article:modified_time' content='2024-08-17T16:20:52&#43;08:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='图像篡改检测' /><meta property='article:tag' content='性能指标' /><meta property='article:tag' content='F1 Score' /><meta property='article:tag' content='Macro-F1 Score' /><meta property='article:tag' content='IML' /><meta property='article:published_time' content='2024-08-17T16:20:52&#43;08:00'/><meta property='article:modified_time' content='2024-08-17T16:20:52&#43;08:00'/><meta property='og:image' content='https://kelfvin.github.io/post/%E5%9B%BE%E5%83%8F%E7%AF%A1%E6%94%B9%E6%A3%80%E6%B5%8B%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E8%99%9A%E9%AB%98/image2.png' />
 <meta name="twitter:title" content="图像篡改检测性能指标虚高">
-<meta name="twitter:description" content="起因 在 IML 领域中，通常使用 F1 来对模型的 Pixel-level (Location) 性能进行评估。\nHIFI_IFDL项目中，有一个issue讨论了F1 score的选择问题：\n提出者认为，当使用average = &lsquo;macro&rsquo;时，F1 score会比使用average = &lsquo;binary&rsquo;时更高。\nWhen you use &ldquo;average = &lsquo;macro&rsquo;&rdquo;, will the F1 score be inflated higher than normal (average = &lsquo;binary&rsquo;)?\n在IMDLBenco项目中也针对这个问题做了一个实验，表明使用average = &lsquo;macro&rsquo;时，F1 score确实会比使用average = &lsquo;binary&rsquo;时更高。\n数学分析 那么从数学上如何解释这个现象呢？首先要知道 F1 score 和 Macro-F1 score 的定义。\nF1 Score\nF1 score是针对二分类问题提出的评价指标，是precision和recall的调和平均数，定义如下：\n$$ F1 = \\frac{2 \\times Precision \\times Recall}{Precision + Recall} $$\n">
+<meta name="twitter:description" content="起因 在 IML 领域中，通常使用 F1 来对模型的 Pixel-level (Location) 性能进行评估。\nHIFI_IFDL项目中，有一个issue讨论了F1 score的选择问题：\n提出者认为，当使用average = &lsquo;macro&rsquo;时，F1 score会比使用average = &lsquo;binary&rsquo;时更高。\nWhen you use &ldquo;average = &lsquo;macro&rsquo;&rdquo;, will the F1 score be inflated higher than normal (average = &lsquo;binary&rsquo;)?\n在IMDLBenco项目中也针对这个问题做了一个实验，表明使用average = &lsquo;macro&rsquo;时，F1 score确实会比使用average = &lsquo;binary&rsquo;时更高。\n数学分析 那么从数学上如何解释这个现象呢？首先要知道 F1 score 和 Macro-F1 score 的定义。\nF1 Score\nF1 score是针对二分类问题提出的评价指标，是precision和recall的调和平均数，定义如下：\n$$ F1 = \\frac{2 \\times Precision \\times Recall}{Precision + Recall} $$\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://kelfvin.github.io/post/%E5%9B%BE%E5%83%8F%E7%AF%A1%E6%94%B9%E6%A3%80%E6%B5%8B%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E8%99%9A%E9%AB%98/image2.png' />
     </head>
     <body class="
     article-page
@@ -358,8 +359,20 @@
 
 
             <main class="main full-width">
-    <article class="main-article">
+    <article class="has-image main-article">
     <header class="article-header">
+        <div class="article-image">
+            <a href="/post/%E5%9B%BE%E5%83%8F%E7%AF%A1%E6%94%B9%E6%A3%80%E6%B5%8B%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E8%99%9A%E9%AB%98/">
+                <img src="/post/%E5%9B%BE%E5%83%8F%E7%AF%A1%E6%94%B9%E6%A3%80%E6%B5%8B%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E8%99%9A%E9%AB%98/image2_hu_479afc6549ee0fc6.png"
+                        srcset="/post/%E5%9B%BE%E5%83%8F%E7%AF%A1%E6%94%B9%E6%A3%80%E6%B5%8B%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E8%99%9A%E9%AB%98/image2_hu_479afc6549ee0fc6.png 800w, /post/%E5%9B%BE%E5%83%8F%E7%AF%A1%E6%94%B9%E6%A3%80%E6%B5%8B%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E8%99%9A%E9%AB%98/image2_hu_455a34f0fbefb82.png 1600w"
+                        width="800" 
+                        height="178" 
+                        loading="lazy"
+                        alt="Featured image of post 图像篡改检测性能指标虚高" />
+                
+            </a>
+        </div>
+    
 
     <div class="article-details">
     
