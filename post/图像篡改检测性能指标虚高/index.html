@@ -14,6 +14,20 @@
 <meta name="twitter:title" content="图像篡改检测性能指标虚高">
 <meta name="twitter:description" content="起因 在 IML 领域中，通常使用 F1 来对模型的 Pixel-level (Location) 性能进行评估。\nHIFI_IFDL项目中，有一个issue讨论了F1 score的选择问题：\n提出者认为，当使用average = &lsquo;macro&rsquo;时，F1 score会比使用average = &lsquo;binary&rsquo;时更高。\nWhen you use &ldquo;average = &lsquo;macro&rsquo;&rdquo;, will the F1 score be inflated higher than normal (average = &lsquo;binary&rsquo;)?\n在IMDLBenco项目中也针对这个问题做了一个实验，表明使用average = &lsquo;macro&rsquo;时，F1 score确实会比使用average = &lsquo;binary&rsquo;时更高。\n数学分析 那么从数学上如何解释这个现象呢？首先要知道 F1 score 和 Macro-F1 score 的定义。\nF1 Score\nF1 score是针对二分类问题提出的评价指标，是precision和recall的调和平均数，定义如下：\n$$ F1 = \\frac{2 \\times Precision \\times Recall}{Precision + Recall} $$\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://kelfvin.github.io/post/%E5%9B%BE%E5%83%8F%E7%AF%A1%E6%94%B9%E6%A3%80%E6%B5%8B%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E8%99%9A%E9%AB%98/image2.png' />
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXX"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-XXXXXXXXX');
+        }
+      </script>
     </head>
     <body class="
     article-page
@@ -286,6 +300,10 @@
                 图像篡改检测
             </a>
         
+            <a href="/categories/%E5%A4%8D%E7%9B%98/" class="font_size_1">
+                复盘
+            </a>
+        
             <a href="/categories/%E9%9A%8F%E7%AC%94/" class="font_size_1">
                 随笔
             </a>
@@ -325,6 +343,10 @@
         
             <a href="/tags/%E5%9B%BE%E5%83%8F%E7%AF%A1%E6%94%B9%E6%A3%80%E6%B5%8B/" class="font_size_1">
                 图像篡改检测
+            </a>
+        
+            <a href="/tags/%E5%A4%8D%E7%9B%98/" class="font_size_1">
+                复盘
             </a>
         
             <a href="/tags/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/" class="font_size_1">
